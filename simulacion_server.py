@@ -10,6 +10,12 @@ reniec_db = {
     "87654321": {"nombres": "MARIA", "apellidos": "LOPEZ RAMOS"}
 }
 
+# Ruta raíz para probar que el servidor funciona
+@app.route("/", methods=["GET"])
+def home():
+    return jsonify({"status": "ok", "mensaje": "Servidor funcionando 🚀"})
+
+# Ruta para verificación de identidad
 @app.route("/verificar", methods=["POST"])
 def verificar():
     data = request.json
@@ -27,4 +33,5 @@ def verificar():
         return jsonify({"status": "error", "mensaje": "❌ DNI no encontrado en la base"})
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000, debug=True)
+    # Render espera que corras en el puerto 5000
+    app.run(host="0.0.0.0", port=5000, debug=True)
