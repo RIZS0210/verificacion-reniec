@@ -9,7 +9,7 @@ reniec_db = {
     "72926391": {
         "nombres": "RECHAEL DARIO",
         "apellidos": "ZAVALETA SANTISTEBAN",
-        "foto": "https://tuusuario.github.io/tu-repo/fotos/Imagen de WhatsApp 2025-09-11 a las 21.13.31_e2155269.jpg"
+        "foto": "https://github.com/RIZS0210/verificacion-reniec/blob/b6d687dc30d35dbbedea9e6c2a793e4b80287016/fotos/Imagen%20de%20WhatsApp%202025-09-11%20a%20las%2021.13.31_e2155269.jpg"
 }
 
 @app.route("/", methods=["GET"])
@@ -39,3 +39,4 @@ def verificar():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
+
