@@ -1,5 +1,8 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import requests
+import base64
+from io import BytesIO
 
 app = Flask(__name__)
 CORS(app)
@@ -12,6 +15,18 @@ reniec_db = {
         "foto": "https://raw.githubusercontent.com/RIZS0210/verificacion-reniec/b6d687dc30d35dbbedea9e6c2a793e4b80287016/fotos/Imagen%20de%20WhatsApp%202025-09-11%20a%20las%2021.13.31_e2155269.jpg"
     }
 }
+
+# Función para convertir imagen desde URL a Base64
+def imagen_a_base64(url):
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        imagen_bytes = BytesIO(response.content)
+        encoded = base64.b64encode(imagen_bytes.read()).decode("utf-8")
+        return f"data:image/jpeg;base64,{encoded}"
+    except Exception as e:
+        print("Error al convertir la imagen a base64:", e)
+        return None
 
 @app.route("/", methods=["GET"])
 def home():
@@ -27,11 +42,20 @@ def verificar():
     if dni in reniec_db:
         persona = reniec_db[dni]
         if persona["nombres"] == nombres and persona["apellidos"] == apellidos:
-            # Devuelve también la foto
+            # Convertir la foto a Base64
+            foto_base64 = imagen_a_base64(persona["foto"])
+            if not foto_base64:
+                return jsonify({"status": "error", "mensaje": "❌ No se pudo procesar la foto"})
+            
+            # Devolver los datos con la foto en base64
             return jsonify({
                 "status": "ok",
                 "mensaje": "✅ Identidad verificada",
-                "datos": persona
+                "datos": {
+                    "nombres": persona["nombres"],
+                    "apellidos": persona["apellidos"],
+                    "foto_base64": foto_base64
+                }
             })
         else:
             return jsonify({"status": "error", "mensaje": "❌ Los datos no coinciden"})
