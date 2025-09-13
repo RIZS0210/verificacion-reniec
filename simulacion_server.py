@@ -17,7 +17,7 @@ reniec_db = {
     "72759900": {  # <- NUEVO REGISTRO
         "nombres": "GRECIA HACIEL",
         "apellidos": "PLASENCIA ALVA",
-        "foto": "https://raw.githubusercontent.com/RIZS0210/verificacion-reniec/main/fotos/haciel.jpg"  # <- cambia a tu URL real
+        "foto": "https://raw.githubusercontent.com/RIZS0210/verificacion-reniec/main/fotos/haciel .jpg"  # <- cambia a tu URL real
     }
 }
 
@@ -70,6 +70,7 @@ def verificar():
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
+
 
 
 
